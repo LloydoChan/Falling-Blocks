@@ -7,6 +7,7 @@
 void PreLoad(TetrisGame* game)
 {
 	game->blockImg.Load("block.png");
+	game->blockImg2.Load("block2.png");
 	game->wallImg.Load("Invisible.png");
 	game->background.Load("background1.png");
 	game->textBg.Load("TextBackground.png");
@@ -31,6 +32,8 @@ void PreLoad(TetrisGame* game)
 	game->transparencyIncrement = 0.05f;
 
 	game->text.SetScale(1.2f);
+
+	
 }
 
 // InitTetrisGame(TetrisGame* game) - init the initial state of a fresh new game
@@ -115,6 +118,9 @@ void InitTetrisGame(TetrisGame* game)
 
 	game->GameOverImageBool = false;
 
+	game->colorOffset = 0.0f;
+	
+	game->colorInterval = 0.05f;
 }
 
 // MoveBlock(int direction,TetrisGame* game) - move the block based on current input if possible

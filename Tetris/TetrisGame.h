@@ -82,9 +82,14 @@ struct TetrisGame
 	//can we display the gameOver image?
 	bool GameOverImageBool;
 
+	//varying values for color offset
+	float colorOffset;
+	float colorInterval; 
+
 
 	//textures used to make up the screen
 	Texture blockImg;
+	Texture blockImg2;
 	Texture wallImg;
 	Texture background;
 	Texture textBg;
@@ -120,6 +125,9 @@ struct TetrisGame
 
 	float effectsVolume;
 	float musicVolume;
+
+	//particle engine for effects;
+	ParticleEngine blockParticles;
 };
 
 //function forward declarations

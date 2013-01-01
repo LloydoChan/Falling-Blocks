@@ -10,6 +10,8 @@ void UpdateScoreAndLevel(TetrisGame* game);
 
 bool CheckBoardForLines(TetrisGame* game);
 
+void CreateParticles(TetrisGame* game);
+
 void RemoveLines(TetrisGame* game);
 
 void ShuffleLines(TetrisGame* game,int line);

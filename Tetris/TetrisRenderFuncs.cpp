@@ -28,25 +28,25 @@ void PlotBlock(TetrisGame* game,int x,int y,int blockCol)
 			color = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
 			break;
 		case L_BLOCK:
-			color = D3DXCOLOR(1.0f,1.0f,0.0f,1.0f);
+			color = D3DXCOLOR(1.0f,1.0f,game->colorOffset,1.0f);
 			break;
 		case R_BLOCK:
-			color = D3DXCOLOR(1.0f,0.0f,0.0f,1.0f);
+			color = D3DXCOLOR(1.0f,game->colorOffset,game->colorOffset,1.0f);
 			break;
 		case T_BLOCK:
-			color = D3DXCOLOR(0.0f,1.0f,0.0f,1.0f);
+			color = D3DXCOLOR(game->colorOffset,1.0f,game->colorOffset,1.0f);
 			break;
 		case S_BLOCK:
-			color = D3DXCOLOR(0.0f,0.0f,1.0f,1.0f);
+			color = D3DXCOLOR(game->colorOffset,game->colorOffset,1.0f,1.0f);
 			break;
 		case SQ_BLOCK:
-			color = D3DXCOLOR(1.0f,0.0f,1.0f,1.0f);
+			color = D3DXCOLOR(1.0f,game->colorOffset,1.0f,1.0f);
 			break;
 		case Z_BLOCK:
-			color = D3DXCOLOR(0.0f,1.0f,1.0f,1.0f);
+			color = D3DXCOLOR(game->colorOffset,1.0f,1.0f,1.0f);
 			break;
 		case LONG_BLOCK:
-			color = D3DXCOLOR(1.0f,1.0f,0.0f,1.0f);
+			color = D3DXCOLOR(1.0f,1.0f,game->colorOffset,1.0f);
 			break;
 		case EMPTY:
 			color = D3DXCOLOR(0.0f,0.0f,0.0f,1.0f);
@@ -57,7 +57,10 @@ void PlotBlock(TetrisGame* game,int x,int y,int blockCol)
 	//otherwise don't!
 	if(blockCol != INVISIBLE)
 	{
-		RenderImage(game,x,y,color,&(game->blockImg));
+		if(blockCol != EMPTY)
+		  RenderImage(game,x,y,color,&(game->blockImg));
+		else
+	      RenderImage(game,x,y,color,&(game->blockImg2));
 	}
 	else
 	{
@@ -99,6 +102,7 @@ void RenderBoard(TetrisGame* game)
 		
 			for(int col = 0; col < 12; col++)
 			{
+				PlotBlock(game,GAME_BOARD_TOP_LEFT_X + col * BLOCK_SIZE,GAME_BOARD_TOP_LEFT_Y + row * BLOCK_SIZE,EMPTY);
 				if(game->GameBoard[row][col] != EMPTY && game->GameBoard[row][col] != INVISIBLE && game->visibleLines[row])
 				{
 					PlotBlock(game,GAME_BOARD_TOP_LEFT_X + col * BLOCK_SIZE,GAME_BOARD_TOP_LEFT_Y + row * BLOCK_SIZE,game->GameBoard[row][col]);	
@@ -107,10 +111,6 @@ void RenderBoard(TetrisGame* game)
 				{
 					PlotBlock(game,GAME_BOARD_TOP_LEFT_X + col * BLOCK_SIZE,GAME_BOARD_TOP_LEFT_Y + row * BLOCK_SIZE,game->GameBoard[row][col]);	
 				
-				}
-				else if(game->GameBoard[row][col] == EMPTY)
-				{
-					PlotBlock(game,GAME_BOARD_TOP_LEFT_X + col * BLOCK_SIZE,GAME_BOARD_TOP_LEFT_Y + row * BLOCK_SIZE,game->GameBoard[row][col]);	
 				}
 			}
 	}

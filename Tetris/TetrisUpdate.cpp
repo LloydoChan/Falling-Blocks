@@ -76,6 +76,14 @@ void UpdateGame(TetrisGame* game)
 				MoveBlock(DOWN,game);
 			}
 
+
+			game->colorOffset += game->colorInterval;
+
+			if(game->colorOffset > 1.0f || game->colorOffset < 0.0f)
+			{
+				game->colorInterval = -game->colorInterval;
+			}
+
 			break;
 
 		case CHECK_BOARD:
@@ -83,12 +91,15 @@ void UpdateGame(TetrisGame* game)
 			//if there are some lines completed
 			if(CheckBoardForLines(game))
 			{
-				//if there is a 'tetris' play a special sound!
+				//if there is a 'tetris' play a special sound
 				if(game->numLinesCompleted == 4)
 					g_engine->p_audio->Play("madeTetris",game->effectsVolume);
 
 				//put the state into flicering lines
 				game->state = FLICKER_LINES;
+
+				//add some particle effects!
+
 			}
 			else
 			{
@@ -259,3 +270,4 @@ void FlickerLines(TetrisGame* game)
 		game->FlickerTimes = FLICKER_RATE;
 	}
 }
+
